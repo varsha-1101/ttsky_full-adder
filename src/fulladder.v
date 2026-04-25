@@ -21,7 +21,7 @@ module tt_um_full_adder (
     wire sum;
     wire cout;
     
-    assign{cout,sum} = a*b*cin;
+    assign{cout,sum} = a+b+cin;
 
     assign uo_out[0]=sum;
     assign uo_out[1]=cout;
