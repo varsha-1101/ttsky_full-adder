@@ -32,8 +32,8 @@ async def test_full_adder(dut):
 
         try:
            output_val = int(dut.uo_out.value)
-           actual_sum =output_val & 1
-           actual_cout =(output_val >> 1) & 1
+           actual_sum = output_val & 1
+           actual_cout = (output_val >> 1) & 1
            assert actual_sum == e_sum, f"Sum Error: A={a} B={b} C={c}"
            assert actual_cout == e_cout,f"Cout Error: A={a} B={b} C={c}"
            dut._log.info(f"Input: {a},{b},{c} -> Sum: {actual_sum}, Cout: {actual_cout} [PASS]")
