@@ -8,7 +8,7 @@ from cocotb.triggers import ClockCycles
 
 @cocotb.test()
 async def test_full_adder(dut):
-    dut._log.info("Starting Gate-level Hardend simulation")
+    dut._log.info("Starting Gate-level Hardend Simulation..")
     # Reset
     dut._log.info("Reset")
     dut.ena.value = 1
