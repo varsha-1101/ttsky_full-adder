@@ -1,20 +1,88 @@
-<!---
+# 1-bit Full Adder - Tiny Tapeout Project
 
-This file is used to generate your project datasheet. Please fill in the information below and delete any unused
-sections.
+This project implements a **1-bit full adder** using Verilog for the Tiny Tapeout platform.  
+It takes three input bits and produces a **sum** and **carry-out** output.
 
-You can also include images in this folder and reference them in the markdown. Each image must be less than
-512 kb in size, and the combined size of all images must be less than 1 MB.
--->
+---
 
 ## How it works
 
-Explain how your project works
+The design uses the lower 3 bits of `ui_in` as inputs:
+
+- `A = ui_in[0]`
+- `B = ui_in[1]`
+- `Cin = ui_in[2]`
+
+### Output mapping:
+- `Sum  -> uo_out[0]`
+- `Cout -> uo_out[1]`
+
+All other output bits are tied to zero.
+
+---
+
+### Logic implementation
+
+The full adder is implemented using arithmetic addition:
+{cout, sum} = a + b + cin;
+
+This means:
+- `sum` is the least significant bit of the result
+- `cout` is the carry-out bit
+
+---
 
 ## How to test
 
-Explain how to use your project
+The design is verified using a **Verilog testbench + cocotb simulation**.
+
+### Testbench setup
+
+The testbench:
+- Instantiates the module `tt_um_full_adder`
+- Dumps waveforms to `tb.vcd`
+- Drives inputs via `ui_in`
+- Observes outputs on `uo_out`
+
+### Inputs tested
+
+All 8 possible combinations of:
+- A (0/1)
+- B (0/1)
+- Cin (0/1)
+
+### Expected behavior
+
+| A | B | Cin | Sum | Cout |
+|---|---|-----|-----|------|
+| 0 | 0 | 0   | 0   | 0    |
+| 0 | 0 | 1   | 1   | 0    |
+| 0 | 1 | 0   | 1   | 0    |
+| 0 | 1 | 1   | 0   | 1    |
+| 1 | 0 | 0   | 1   | 0    |
+| 1 | 0 | 1   | 0   | 1    |
+| 1 | 1 | 0   | 0   | 1    |
+| 1 | 1 | 1   | 1   | 1    |
+
+---
+
+## Testbench details
+
+The provided testbench:
+- Generates a VCD waveform file (`tb.vcd`)
+- Instantiates `tt_um_full_adder`
+- Provides clock (`clk`), reset (`rst_n`), and enable (`ena`)
+- Connects input/output buses for simulation
+
+Tooling used:
+- Verilog simulation (Icarus / Verilator compatible)
+- Cocotb Python testbench
+- GTKWave for waveform analysis
+
+---
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+No external hardware is required.
+
+The design is fully digital and runs entirely inside the Tiny Tapeout ASIC environment.
